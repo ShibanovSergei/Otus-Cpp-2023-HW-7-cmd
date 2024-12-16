@@ -6,13 +6,14 @@
 void CmdSaver::Save(const vector<string>& commands)
 {
     std::time_t first_cmd_time = std::chrono::system_clock::to_time_t(_markedTime);
-    std::string filename = std::to_string(first_cmd_time) + ".log";
+    std::string filename = "bulk" + std::to_string(first_cmd_time) + ".log";
 
     std::ofstream outFile(filename, std::ios::binary);
     
     if (!outFile) 
     {
         std::cerr << "Error opening file for writing: " << filename << std::endl;
+        std::cerr << "Error code: " << strerror(errno) << std::endl;
         return;
     }
 
