@@ -11,5 +11,5 @@ class CmdSaver
 	void Save(const vector<string>& commands);
 
 private:
-	std::chrono::system_clock::time_point _markedTime;
+	chrono::system_clock::time_point _markedTime;
 };

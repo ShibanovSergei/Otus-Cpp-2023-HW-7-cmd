@@ -5,22 +5,22 @@
 
 void CmdSaver::Save(const vector<string>& commands)
 {
-    std::time_t first_cmd_time = std::chrono::system_clock::to_time_t(_markedTime);
-    std::string filename = "bulk" + std::to_string(first_cmd_time) + ".log";
+    time_t first_cmd_time = chrono::system_clock::to_time_t(_markedTime);
+    string filename = "bulk" + to_string(first_cmd_time) + ".log";
 
-    std::ofstream outFile(filename, std::ios::binary);
+    ofstream outFile(filename, ios::binary);
     
     if (!outFile) 
     {
-        std::cerr << "Error opening file for writing: " << filename << std::endl;
-        std::cerr << "Error code: " << strerror(errno) << std::endl;
+        cerr << "Error opening file for writing: " << filename << endl;
+        cerr << "Error code: " << errno << endl;
         return;
     }
 
     size_t size = commands.size();
     outFile.write(reinterpret_cast<const char*>(&size), sizeof(size));
     
-    for (const std::string& str : commands)
+    for (const string& str : commands)
     {
         size_t length = str.size();
         outFile.write(reinterpret_cast<const char*>(&length), sizeof(length));        
@@ -32,5 +32,5 @@ void CmdSaver::Save(const vector<string>& commands)
 
 void CmdSaver::MarkTime()
 {
-	_markedTime = std::chrono::system_clock::now();
+	_markedTime = chrono::system_clock::now();
 }
